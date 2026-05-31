@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotelease-app-deployment
+  labels:
+    app: hotelease-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotelease-app
+  template:
+    metadata:
+      labels:
+        app: hotelease-app
+    spec:
+      containers:
+        - name: hotelease-app
+          image: hotelease-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: MONGO_URI
+              value: "mongodb://mongodb-service:27017/hotelease"

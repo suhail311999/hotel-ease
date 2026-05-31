@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HotelEase – Premium Hotel Booking Platform</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Search, view, and book luxury hotels worldwide. Manage listings and reservations with our customer, hotel owner, and administrator modules.">
+  <meta name="keywords" content="hotel booking, luxury hotel, lodging, hotel ease, customer dashboard, hotel management">
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Header & Navigation -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="#customer/explore" class="logo">
+        <i class="fa-solid fa-hotel logo-icon"></i>
+        <span>Hotel<span class="logo-accent">Ease</span></span>
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#customer/explore" class="nav-link active" id="nav-link-explore"><i class="fa-solid fa-compass"></i> Explore</a></li>
+          <!-- Owner Specific Link -->
+          <li class="owner-only" style="display: none;"><a href="#owner/dashboard" class="nav-link" id="nav-link-owner"><i class="fa-solid fa-chart-line"></i> Owner Dashboard</a></li>
+          <!-- Admin Specific Link -->
+          <li class="admin-only" style="display: none;"><a href="#admin/dashboard" class="nav-link" id="nav-link-admin"><i class="fa-solid fa-sliders"></i> Admin Panel</a></li>
+        </ul>
+
+        <!-- User Authentication Control -->
+        <div class="user-auth-control">
+          <!-- Logged Out View -->
+          <div class="auth-logged-out" id="auth-logged-out">
+            <button class="btn btn-outline" id="btn-login-trigger">Log In</button>
+            <button class="btn btn-primary" id="btn-register-trigger">Register</button>
+          </div>
+          <!-- Logged In View -->
+          <div class="auth-logged-in" id="auth-logged-in" style="display: none;">
+            <div class="user-profile-badge">
+              <div class="avatar" id="user-avatar"><i class="fa-solid fa-user"></i></div>
+              <div class="user-info">
+                <span class="user-name" id="display-user-name">Jane Doe</span>
+                <span class="user-role-badge" id="display-user-role">Customer</span>
+              </div>
+            </div>
+            <!-- Wallet Indicator (Customers Only) -->
+            <div class="wallet-indicator customer-only" id="wallet-indicator">
+              <i class="fa-solid fa-wallet"></i>
+              <span id="display-wallet-balance">$5,000</span>
+              <button class="btn-add-funds" id="btn-add-funds" title="Add Demo Funds"><i class="fa-solid fa-plus-circle"></i></button>
+            </div>
+            <button class="btn btn-logout-icon" id="btn-logout" title="Log Out">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Viewport -->
+  <main class="app-viewport" id="app-view">
+    <!-- Rendered dynamically by app.js router -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo">
+          <i class="fa-solid fa-hotel logo-icon"></i>
+          <span>Hotel<span class="logo-accent">Ease</span></span>
+        </div>
+        <p>Your premium gateway to luxury hotel stays and effortless accommodation booking. Designed for travelers, owners, and operators.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#customer/explore">Browse Hotels</a></li>
+            <li><a href="#customer/explore?city=New York">New York Stays</a></li>
+            <li><a href="#customer/explore?city=Miami">Miami Resorts</a></li>
+            <li><a href="#customer/explore?city=Kyoto">Kyoto Traditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>For Partners</h4>
+          <ul>
+            <li><a href="#" id="footer-owner-link">List Your Property</a></li>
+            <li><a href="#owner/dashboard">Owner Portal</a></li>
+            <li><a href="#">Advertising</a></li>
+            <li><a href="#">Merchant Agreement</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#admin/dashboard">Admin Access</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 HotelEase Ltd. All rights reserved. Made with <i class="fa-solid fa-heart" style="color: #ff4757;"></i> for premium stays.</p>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="modal-auth">
+    <div class="modal-card">
+      <button class="modal-close" onclick="HotelEase.ui.closeModal('modal-auth')">&times;</button>
+      
+      <!-- Login Form View -->
+      <div id="auth-view-login">
+        <h3 class="modal-title">Welcome Back</h3>
+        <p class="modal-subtitle">Log in to manage bookings and secure your premium stays.</p>
+        
+        <!-- Quick login tags for demo -->
+        <div class="demo-logins">
+          <span>Demo Logins:</span>
+          <button class="badge demo-login-tag" data-email="customer@hotelease.com" data-pass="password">Customer</button>
+          <button class="badge demo-login-tag" data-email="owner@hotelease.com" data-pass="password">Owner</button>
+          <button class="badge demo-login-tag" data-email="admin@hotelease.com" data-pass="password">Admin</button>
+        </div>
+
+        <form id="form-login" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required>
+            <span class="error-msg" id="err-login-email"></span>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+            <span class="error-msg" id="err-login-password"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Log In</button>
+        </form>
+        <p class="modal-footer-text">Don't have an account? <a href="#" id="link-show-register">Register here</a></p>
+      </div>
+
+      <!-- Register Form View -->
+      <div id="auth-view-register" style="display: none;">
+        <h3 class="modal-title">Create Account</h3>
+        <p class="modal-subtitle">Join HotelEase today and experience premium hospitality.</p>
+        
+        <form id="form-register" novalidate>
+          <div class="form-group">
+            <label for="register-name">Full Name</label>
+            <input type="text" id="register-name" class="form-control" placeholder="John Doe" required>
+            <span class="error-msg" id="err-register-name"></span>
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email Address</label>
+            <input type="email" id="register-email" class="form-control" placeholder="name@example.com" required>
+            <span class="error-msg" id="err-register-email"></span>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" class="form-control" placeholder="Min. 6 characters" required minlength="6">
+            <span class="error-msg" id="err-register-password"></span>
+          </div>
+          <div class="form-group">
+            <label for="register-role">Account Type</label>
+            <select id="register-role" class="form-control" required>
+              <option value="customer" selected>Customer (Browse & Book)</option>
+              <option value="owner">Hotel Owner (List & Manage Properties)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <p class="modal-footer-text">Already have an account? <a href="#" id="link-show-login">Log in here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div class="modal-overlay" id="modal-booking">
+    <div class="modal-card modal-lg">
+      <button class="modal-close" onclick="HotelEase.ui.closeModal('modal-booking')">&times;</button>
+      <h3 class="modal-title">Confirm Reservation</h3>
+      <p class="modal-subtitle">Review your selected stay and finalize payment details.</p>
+
+      <div class="booking-modal-grid">
+        <!-- Booking Details Column -->
+        <div class="booking-summary-panel">
+          <div class="booking-summary-hotel-img" id="book-summary-img"></div>
+          <div class="booking-summary-info">
+            <h4 id="book-summary-name">Hotel Name</h4>
+            <p id="book-summary-location"><i class="fa-solid fa-location-dot"></i> Location</p>
+            <hr class="divider">
+            <div class="booking-summary-room">
+              <span class="label">Room Type:</span>
+              <strong id="book-summary-room-type">Standard Suite</strong>
+            </div>
+            <div class="booking-summary-dates">
+              <div class="date-block">
+                <span>Check-in</span>
+                <strong id="book-summary-checkin">May 12, 2026</strong>
+              </div>
+              <div class="date-block">
+                <span>Check-out</span>
+                <strong id="book-summary-checkout">May 15, 2026</strong>
+              </div>
+            </div>
+            <div class="booking-summary-pricing">
+              <div class="price-row">
+                <span id="price-calc-label">$150 x 3 nights</span>
+                <span id="price-calc-subtotal">$450</span>
+              </div>
+              <div class="price-row">
+                <span>Taxes & Fees (12%)</span>
+                <span id="price-calc-tax">$54</span>
+              </div>
+              <hr class="divider">
+              <div class="price-row total">
+                <span>Grand Total</span>
+                <strong id="price-calc-total">$504</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkout Form Column -->
+        <div class="checkout-form-panel">
+          <form id="form-checkout" novalidate>
+            <h5 class="section-title">1. Guest Information</h5>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="checkout-guests">Number of Guests</label>
+                <select id="checkout-guests" class="form-control">
+                  <option value="1">1 Guest</option>
+                  <option value="2" selected>2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                </select>
+              </div>
+            </div>
+
+            <h5 class="section-title margin-top-lg">2. Secure Wallet Payment</h5>
+            <div class="wallet-balance-alert">
+              <div>
+                <span class="label">Your Wallet Balance:</span>
+                <strong class="balance-amount" id="checkout-wallet-balance">$5,000</strong>
+              </div>
+              <div class="balance-status" id="checkout-balance-status">
+                <i class="fa-solid fa-circle-check text-success"></i> Sufficient Balance
+              </div>
+            </div>
+
+            <div class="payment-disclaimer">
+              <i class="fa-solid fa-lock"></i> Secured Demo payment. The total cost will be deducted directly from your customer wallet.
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-pay-now">Confirm and Pay Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD HOTEL MODAL (OWNERS) -->
+  <div class="modal-overlay" id="modal-add-hotel">
+    <div class="modal-card">
+      <button class="modal-close" onclick="HotelEase.ui.closeModal('modal-add-hotel')">&times;</button>
+      <h3 class="modal-title" id="hotel-modal-title">Register New Hotel</h3>
+      <p class="modal-subtitle">Submit your property details. Administrations will review and approve listings prior to display.</p>
+
+      <form id="form-add-hotel" novalidate>
+        <div class="form-group">
+          <label for="hotel-name">Hotel Name</label>
+          <input type="text" id="hotel-name" class="form-control" placeholder="e.g. Royal Palace Resorts" required>
+          <span class="error-msg" id="err-hotel-name"></span>
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="hotel-location">City & State / Country</label>
+            <input type="text" id="hotel-location" class="form-control" placeholder="e.g. Chicago, IL" required>
+            <span class="error-msg" id="err-hotel-location"></span>
+          </div>
+          <div class="form-group">
+            <label for="hotel-base-price">Base Nightly Price ($)</label>
+            <input type="number" id="hotel-base-price" class="form-control" placeholder="150" min="20" required>
+            <span class="error-msg" id="err-hotel-base-price"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="hotel-description">Property Description</label>
+          <textarea id="hotel-description" class="form-control" rows="3" placeholder="Tell travelers about your hotel highlights, location advantages, and unique experiences..." required></textarea>
+          <span class="error-msg" id="err-hotel-description"></span>
+        </div>
+        <div class="form-group">
+          <label for="hotel-image">Image URL</label>
+          <input type="url" id="hotel-image" class="form-control" placeholder="https://images.unsplash.com/... or leave blank for default">
+        </div>
+        <div class="form-group">
+          <label>Select Amenities Offered</label>
+          <div class="amenities-checkbox-grid">
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Wifi" checked> Wifi</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Pool"> Pool</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Gym"> Gym</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Spa"> Spa</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Bar"> Bar</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Restaurant"> Restaurant</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Parking" checked> Parking</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="River View"> River View</label>
+            <label class="checkbox-label"><input type="checkbox" name="hotel-amenity" value="Beach Access"> Beach Access</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit for Approval</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD FUNDING MODAL (DEMO CONVENIENCE) -->
+  <div class="modal-overlay" id="modal-funds">
+    <div class="modal-card modal-sm">
+      <button class="modal-close" onclick="HotelEase.ui.closeModal('modal-funds')">&times;</button>
+      <h3 class="modal-title">Demo Wallet</h3>
+      <p class="modal-subtitle">Add mock money to your wallet to continue testing room bookings.</p>
+      
+      <form id="form-add-funds">
+        <div class="form-group">
+          <label for="fund-amount">Amount to Add ($)</label>
+          <input type="number" id="fund-amount" class="form-control" value="1000" min="100" max="10000" step="100" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Funds</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/customer.js"></script>
+  <script src="js/owner.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
